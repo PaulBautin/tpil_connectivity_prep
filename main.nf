@@ -15,13 +15,15 @@ if(params.help) {
 }
 
 log.info ""
-log.info "TPIL Bundle Segmentation Pipeline"
+log.info "TPIL Connectivity Prep Pipeline"
 log.info "=================================="
 log.info "Start time: $workflow.start"
 log.info ""
 log.info "[Input info]"
 log.info "Input tractoflow folder: $params.input_tr"
 log.info "Input freesurfer folder: $params.input_fs"
+log.info "Input MNI template: $params.template"
+log.info "Input freesurfer licence file: $params.licence_fs"
 log.info ""
 
 workflow.onComplete {
