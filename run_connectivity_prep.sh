@@ -13,12 +13,15 @@ my_input_tr='/home/pabaua/dev_tpil/results/results_tracto'
 my_input_fs='/home/pabaua/dev_tpil/data/Freesurfer/22-09-21_t1_clbp_freesurfer_output'
 # MNI template masked (the same as commonly used by the scil)
 my_template='/home/pabaua/dev_scil/atlas/mni_masked.nii.gz'
+# Freesurfer licence file
+my_licence_fs='/home/pabaua/dev_tpil/data/Freesurfer/license.txt'
 
 
 nextflow run $my_main_nf  \
   --input_tr $my_input_tr \
   --input_fs $my_input_fs \
   --template $my_template \
+  --licence_fs $my_licence_fs \
   -with-singularity $my_singularity_img \
   -profile local \
   -resume
