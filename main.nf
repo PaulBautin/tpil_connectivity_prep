@@ -44,7 +44,7 @@ process Subcortex_segmentation {
     script:
     """
     run_first_all -i ${T1nativepro_brain} -o ${sid} -b -v
-    /opt/ants-2.3.2/bin/antsApplyTransforms -d 3 -i ${sid}_all_fast_firstseg.nii.gz -t ${affine} -t ${warp} -r ${t1_diffpro_brain} -o ${sid}__first_atlas_transformed.nii.gz -n genericLabel
+    /opt/ants-2.3.2/bin/antsApplyTransforms -d 3 -i ${sid}_all_fast_firstseg.nii.gz -t ${warp} -t ${affine} -r ${t1_diffpro_brain} -o ${sid}__first_atlas_transformed.nii.gz -n genericLabel
     """
 }
 
