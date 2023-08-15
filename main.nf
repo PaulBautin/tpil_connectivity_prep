@@ -87,7 +87,8 @@ process Parcels_to_subject {
 
     script:
     """
-    mri_convert $SUBJECTS_DIR/${sid}/mri/brainmask.mgz mask_brain.nii.gz
+    #mri_convert $SUBJECTS_DIR/${sid}/mri/brainmask.mgz mask_brain.nii.gz
+    mri_convert $SUBJECTS_DIR/${sid}/mri/ribbon.mgz mask_brain.nii.gz
     source activate env_scil
     scil_image_math.py lower_threshold mask_brain.nii.gz 1 mask_brain_bin.nii.gz
     scil_combine_labels.py out_labels.nii.gz --volume_ids ${fs_seg_lh} all --volume_ids ${fs_seg_rh} all
