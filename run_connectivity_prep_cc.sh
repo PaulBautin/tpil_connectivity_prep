@@ -29,8 +29,8 @@ module load StdEnv/2020 java/14.0.2 nextflow/22.10.8 apptainer/1.1.8
 
 my_singularity_img='/home/pabaua/projects/def-pascalt-ab/pabaua/dev_scil/containers/singularity_container.sif' # or .sif
 my_main_nf='/home/pabaua/projects/def-pascalt-ab/pabaua/dev_tpil/tpil_network_analysis/connectivity_prep/main.nf'
-my_input_tr='/home/pabaua/scratch/tpil_dev/results/clbp/23-07-05_tractoflow_bundling/results'
-my_input_fs='/home/pabaua/scratch/tpil_dev/data/22-09-21_t1_clbp_freesurfer_output'
+my_input_tr='/home/pabaua/scratch/tpil_dev/results/control/23-07-05_tractoflow_bundling/results'
+my_input_fs='/home/pabaua/scratch/tpil_dev/data/23_02_09_control_freesurfer_output'
 
 
 nextflow run $my_main_nf  \
