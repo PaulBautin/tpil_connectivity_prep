@@ -31,11 +31,13 @@ my_singularity_img='/home/pabaua/projects/def-pascalt-ab/pabaua/dev_scil/contain
 my_main_nf='/home/pabaua/projects/def-pascalt-ab/pabaua/dev_tpil/tpil_connectivity_prep/main.nf'
 my_input_tr='/home/pabaua/scratch/tpil_dev/results/control/23-07-05_tractoflow_bundling/results'
 my_input_fs='/home/pabaua/scratch/tpil_dev/data/23_02_09_control_freesurfer_output'
+my_licence_fs='/home/pabaua/projects/def-pascalt-ab/pabaua/dev_tpil/tpil_connectivity_prep/freesurfer_data/license.txt'
 
 
 nextflow run $my_main_nf  \
   --input_tr $my_input_tr \
   --input_fs $my_input_fs \
+  --licence_fs $my_licence_fs \
   -with-singularity $my_singularity_img \
   -profile compute_canada \
   -resume
