@@ -49,7 +49,7 @@ process Subcortex_segmentation {
 }
 
 
-process Atlas_to_fs {
+process BN_to_fs {
     memory_limit='6 GB'
     cpus=4
 
@@ -74,6 +74,31 @@ process Atlas_to_fs {
 }
 
 
+process Schaefer_to_fs {
+    memory_limit='6 GB'
+    cpus=4
+
+    input:
+    tuple val(sid), path(T1nativepro_brain)
+
+    output:
+    tuple val(sid), file("lh.Schaefer2018_200Parcels_7Networks.annot"), file("lh.Schaefer2018_200Parcels_7Networks.nii.gz"), file("rh.Schaefer2018_200Parcels_7Networks.annot"), file("rh.Schaefer2018_200Parcels_7Networks.nii.gz")
+
+    script:
+    """
+    tkregister2_cmdl --mov $SUBJECTS_DIR/${sid}/mri/brain.mgz --noedit --s ${sid} --regheader --reg register.dat
+    mris_ca_label -l $SUBJECTS_DIR/${sid}/label/lh.cortex.label ${sid} lh sphere.reg $SUBJECTS_DIR/lh.Schaefer2018_200Parcels_7Networks.gcs Schaefer2018_200Parcels_7Networks.annot -t $SUBJECTS_DIR/Schaefer2018_200Parcels_7Networks_order_LUT.txt
+    cp $SUBJECTS_DIR/${sid}/label/lh.Schaefer2018_200Parcels_7Networks.annot .
+    mris_ca_label -l $SUBJECTS_DIR/${sid}/label/rh.cortex.label ${sid} rh sphere.reg $SUBJECTS_DIR/rh.Schaefer2018_200Parcels_7Networks.gcs Schaefer2018_200Parcels_7Networks.annot -t $SUBJECTS_DIR/Schaefer2018_200Parcels_7Networks_order_LUT.txt
+    cp $SUBJECTS_DIR/${sid}/label/rh.Schaefer2018_200Parcels_7Networks.annot .
+    mri_label2vol --subject ${sid} --hemi lh --annot Schaefer2018_200Parcels_7Networks --o $SUBJECTS_DIR/${sid}/mri/lh.Schaefer2018_200Parcels_7Networks.nii.gz --temp $SUBJECTS_DIR/${sid}/mri/brain.mgz --reg register.dat --proj frac 0 1 0.01
+    cp $SUBJECTS_DIR/${sid}/mri/lh.Schaefer2018_200Parcels_7Networks.nii.gz .
+    mri_label2vol --subject ${sid} --hemi rh --annot Schaefer2018_200Parcels_7Networks --o $SUBJECTS_DIR/${sid}/mri/rh.Schaefer2018_200Parcels_7Networks.nii.gz --temp $SUBJECTS_DIR/${sid}/mri/brain.mgz --reg register.dat --proj frac 0 1 0.01
+    cp $SUBJECTS_DIR/${sid}/mri/rh.Schaefer2018_200Parcels_7Networks.nii.gz .
+    """
+}
+
+
 process Parcels_to_subject {
     memory_limit='6 GB'
     cpus=4
@@ -88,12 +113,12 @@ process Parcels_to_subject {
     script:
     """
     #mri_convert $SUBJECTS_DIR/${sid}/mri/brainmask.mgz mask_brain.nii.gz
-    mri_convert $SUBJECTS_DIR/${sid}/mri/ribbon.mgz mask_brain.nii.gz
+    mri_convert $SUBJECTS_DIR/${sid}/mri/ribbon.mgz mask_brain2.nii.gz
     source activate env_scil
-    scil_image_math.py lower_threshold mask_brain.nii.gz 1 mask_brain_bin.nii.gz
+    scil_image_math.py lower_threshold mask_brain2.nii.gz 1 mask_brain_bin.nii.gz
     scil_combine_labels.py out_labels.nii.gz --volume_ids ${fs_seg_lh} all --volume_ids ${fs_seg_rh} all
     scil_dilate_labels.py out_labels.nii.gz fs_labels_dilated.nii.gz --distance 1.5 --mask mask_brain_bin.nii.gz
-    /opt/ants-2.3.2/bin/antsRegistrationSyN -d 3 -f ${t1_diffpro_brain} -m $SUBJECTS_DIR/${sid}/mri/brain.mgz -t s -o ${sid}__output
+    /opt/ants-2.3.2/bin/antsRegistrationSyNQuick.sh -d 3 -f ${t1_diffpro_brain} -m $SUBJECTS_DIR/${sid}/mri/brain.mgz -t s -o ${sid}__output
     /opt/ants-2.3.2/bin/antsApplyTransforms -d 3 -i fs_labels_dilated.nii.gz -t ${sid}__output1Warp.nii.gz -t ${sid}__output0GenericAffine.mat -r ${t1_diffpro_brain} -o ${sid}__fsatlas_transformed.nii.gz -n GenericLabel
     scil_image_math.py addition ${sub_seg} 1000 sub_seg_add_1000.nii.gz --exclude_background --data_type int16
     scil_image_math.py addition ${sid}__fsatlas_transformed.nii.gz 0 cortex_seg_add_0.nii.gz --exclude_background --data_type int16
@@ -150,10 +175,11 @@ workflow {
     Subcortex_segmentation(data_sub_seg)
 
     // Register Atlas parcels into freesurfer space
-    Atlas_to_fs(t1_nativepro_brain)
+    BN_to_fs(t1_nativepro_brain)
+    Schaefer_to_fs(t1_nativepro_brain)
 
     // Apply and combine cortex and sub-cortex parcels
-    Atlas_to_fs.out.map{[it[0], it[2], it[4]]}.combine(Subcortex_segmentation.out.sub_parcels, by:0).combine(t1_diffpro_brain, by:0).set{data_atlas_to_fs}
+    Schaefer_to_fs.out.map{[it[0], it[2], it[4]]}.combine(Subcortex_segmentation.out.sub_parcels, by:0).combine(t1_diffpro_brain, by:0).set{data_atlas_to_fs}
     Parcels_to_subject(data_atlas_to_fs)
 
     // Connectlow prep
