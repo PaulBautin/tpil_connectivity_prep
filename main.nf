@@ -117,7 +117,7 @@ process Parcels_to_subject {
     scil_image_math.py lower_threshold mask_brain2.nii.gz 1 mask_brain_bin.nii.gz
     scil_combine_labels.py out_labels.nii.gz --volume_ids ${fs_seg_lh} all --volume_ids ${fs_seg_rh} all
     scil_dilate_labels.py out_labels.nii.gz fs_labels_dilated.nii.gz --distance 1.5 --mask mask_brain_bin.nii.gz
-    /opt/ants-2.3.2/bin/antsRegistrationSyN.sh -d 3 -f ${t1_diffpro_brain} -m $SUBJECTS_DIR/${sid}/mri/brain.mgz -t s -o ${sid}__output
+    /opt/ants-2.3.2/bin/antsRegistrationSyNQuick.sh -d 3 -f ${t1_diffpro_brain} -m $SUBJECTS_DIR/${sid}/mri/brain.mgz -t s -o ${sid}__output
     /opt/ants-2.3.2/bin/antsApplyTransforms -d 3 -i fs_labels_dilated.nii.gz -t ${sid}__output1Warp.nii.gz -t ${sid}__output0GenericAffine.mat -r ${t1_diffpro_brain} -o ${sid}__fsatlas_transformed.nii.gz -n GenericLabel
     scil_image_math.py addition ${sub_seg} 1000 sub_seg_add_1000.nii.gz --exclude_background --data_type int16
     scil_image_math.py addition ${sid}__fsatlas_transformed.nii.gz 0 cortex_seg_add_0.nii.gz --exclude_background --data_type int16
