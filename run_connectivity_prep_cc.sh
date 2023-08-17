@@ -14,7 +14,7 @@
                                # https://docs.computecanada.ca/wiki/B%C3%A9luga/en#Node_Characteristics
 #SBATCH --mem=0                # --> 0 means you take all the memory of the node. If you think you will need
                                # all the node, you can keep 0.
-#SBATCH --time=6:00:00
+#SBATCH --time=48:00:00
 
 #SBATCH --mail-user=paul.bautin@polymtl.ca
 #SBATCH --mail-type=BEGIN
@@ -50,9 +50,10 @@ my_singularity_img='/home/pabaua/projects/def-pascalt-ab/pabaua/dev_scil/contain
 my_main_nf='/home/pabaua/projects/def-pascalt-ab/pabaua/dev_scil/connectoflow/main.nf'
 my_input='/home/pabaua/scratch/tpil_dev/results/control/23-08-17_connectflow/results'
 my_template='/home/pabaua/projects/def-pascalt-ab/pabaua/dev_scil/atlas/mni_masked.nii.gz'
-my_labels_list='/home/pabaua/projects/def-pascalt-ab/pabaua/dev_tpil/atlas_brainnetome_first_label_list.txt'
+my_labels_list_BN='/home/pabaua/projects/def-pascalt-ab/pabaua/dev_tpil/tpil_connectivity_prep/freesurfer_data/atlas_brainnetome_first_label_list.txt'
+my_labels_list_schaefer='/home/pabaua/projects/def-pascalt-ab/pabaua/dev_tpil/tpil_connectivity_prep/freesurfer_data/atlas_brainnetome_first_label_list.txt'
 
 
-NXF_DEFAULT_DSL=1 nextflow run $my_main_nf --input $my_input --labels_list $my_labels_list --template $my_template \
-    --apply_t1_labels_transfo false -with-singularity $my_singularity_img -resume
+NXF_DEFAULT_DSL=1 nextflow run $my_main_nf --input $my_input --labels_list $my_labels_list_BN --template $my_template \
+    --apply_t1_labels_transfo false -with-singularity $my_singularity_img -resume --labels_img_prefix 'BN_'
 
