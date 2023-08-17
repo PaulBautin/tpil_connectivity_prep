@@ -178,7 +178,7 @@ workflow {
     Schaefer_to_fs(t1_nativepro_brain)
 
     // Apply and combine cortex and sub-cortex parcels
-    Schaefer_to_fs.out.map{[it[0], it[2], it[4]]}.combine(Subcortex_segmentation.out.sub_parcels, by:0).combine(t1_diffpro_brain, by:0).set{data_atlas_to_fs}
+    BN_to_fs.out.map{[it[0], it[2], it[4]]}.combine(Subcortex_segmentation.out.sub_parcels, by:0).combine(t1_diffpro_brain, by:0).set{data_atlas_to_fs}
     Parcels_to_subject(data_atlas_to_fs)
 
     // Connectlow prep
