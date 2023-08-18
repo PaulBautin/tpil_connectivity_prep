@@ -37,8 +37,8 @@ my_licence_fs='/home/pabaua/projects/def-pascalt-ab/pabaua/dev_tpil/tpil_connect
 
 
 nextflow run $my_main_nf  \
-  --input_tr $my_input_tr_clbp \
-  --input_fs $my_input_fs_clbp \
+  --input_tr $my_input_tr_con \
+  --input_fs $my_input_fs_con \
   --licence_fs $my_licence_fs \
   -with-singularity $my_singularity_img \
   -profile compute_canada \
@@ -56,10 +56,10 @@ my_input_con_schaefer='/home/pabaua/scratch/tpil_dev/results/control/23-08-17_co
 my_input_clbp_schaefer='/home/pabaua/scratch/tpil_dev/results/clbp/23-08-17_connectflow_schaefer/results'
 my_template='/home/pabaua/projects/def-pascalt-ab/pabaua/dev_scil/atlas/mni_masked.nii.gz'
 my_labels_list_BN='/home/pabaua/projects/def-pascalt-ab/pabaua/dev_tpil/tpil_connectivity_prep/freesurfer_data/atlas_brainnetome_first_label_list.txt'
-my_labels_list_schaefer='/home/pabaua/projects/def-pascalt-ab/pabaua/dev_tpil/tpil_connectivity_prep/freesurfer_data/atlas_schaefer_200_first label_list.txt'
+my_labels_list_schaefer='/home/pabaua/projects/def-pascalt-ab/pabaua/dev_tpil/tpil_connectivity_prep/freesurfer_data/atlas_schaefer_200_first_label_list.txt'
 
 NXF_DEFAULT_DSL=1 nextflow run $my_main_nf \
-  --input $my_input_clbp_schaefer \
+  --input $my_input_con_schaefer \
   --labels_list $my_labels_list_schaefer \
   --labels_img_prefix 'schaefer_' \
   --template $my_template \
