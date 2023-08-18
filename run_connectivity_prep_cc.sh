@@ -48,12 +48,12 @@ module load StdEnv/2020 java/14.0.2 nextflow/21.10.3 apptainer/1.1.8
 
 my_singularity_img='/home/pabaua/projects/def-pascalt-ab/pabaua/dev_scil/containers/scilus_1.5.0.sif' # or .img
 my_main_nf='/home/pabaua/projects/def-pascalt-ab/pabaua/dev_scil/connectoflow/main.nf'
-my_input='/home/pabaua/scratch/tpil_dev/results/clbp/23-08-17_connectflow/results'
+my_input='/home/pabaua/scratch/tpil_dev/results/clbp/23-08-17_connectflow_schaefer/results'
 my_template='/home/pabaua/projects/def-pascalt-ab/pabaua/dev_scil/atlas/mni_masked.nii.gz'
 my_labels_list_BN='/home/pabaua/projects/def-pascalt-ab/pabaua/dev_tpil/tpil_connectivity_prep/freesurfer_data/atlas_brainnetome_first_label_list.txt'
 my_labels_list_schaefer='/home/pabaua/projects/def-pascalt-ab/pabaua/dev_tpil/tpil_connectivity_prep/freesurfer_data/atlas_brainnetome_first_label_list.txt'
 
 
-NXF_DEFAULT_DSL=1 nextflow run $my_main_nf --input $my_input --labels_list $my_labels_list_BN --template $my_template \
-    --apply_t1_labels_transfo false -with-singularity $my_singularity_img -resume --labels_img_prefix 'BN_'
+NXF_DEFAULT_DSL=1 nextflow run $my_main_nf --input $my_input --labels_list $my_labels_list_schaefer --template $my_template \
+    --apply_t1_labels_transfo false -with-singularity $my_singularity_img -resume --labels_img_prefix 'schaefer_'
 
