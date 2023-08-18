@@ -54,6 +54,6 @@ my_labels_list_BN='/home/pabaua/projects/def-pascalt-ab/pabaua/dev_tpil/tpil_con
 my_labels_list_schaefer='/home/pabaua/projects/def-pascalt-ab/pabaua/dev_tpil/tpil_connectivity_prep/freesurfer_data/atlas_brainnetome_first_label_list.txt'
 
 
-NXF_DEFAULT_DSL=1 nextflow run $my_main_nf --input $my_input --labels_list $my_labels_list_BN --template $my_template \
-    --apply_t1_labels_transfo false -with-singularity $my_singularity_img -resume --labels_img_prefix 'BN_'
+NXF_DEFAULT_DSL=1 nextflow run $my_main_nf --input $my_input --labels_list $my_labels_list_schaefer --template $my_template \
+    --apply_t1_labels_transfo false -with-singularity $my_singularity_img -resume --labels_img_prefix 'schaefer_'
 
