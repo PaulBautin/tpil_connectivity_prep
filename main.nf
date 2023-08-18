@@ -114,13 +114,13 @@ process Parcels_to_subject {
     scil_remove_labels.py fs_schaefer_clipped.nii.gz  fs_schaefer_clipped.nii.gz -i 1000 -f
 
     scil_image_math.py lower_clip ${fs_seg_BN} 2000 fs_BN_clipped_2000.nii.gz
-    scil_image_math.py upper_clip fs_BN_clipped_2000.nii.gz 2101 fs_BN_clipped_2000.nii.gz -f
-    scil_remove_labels.py fs_BN_clipped_2000.nii.gz  fs_BN_clipped_2000.nii.gz -i 2000 2101 -f
+    scil_image_math.py upper_clip fs_BN_clipped_2000.nii.gz 2211 fs_BN_clipped_2000.nii.gz -f
+    scil_remove_labels.py fs_BN_clipped_2000.nii.gz  fs_BN_clipped_2000.nii.gz -i 2000 2211 -f
     scil_image_math.py subtraction fs_BN_clipped_2000.nii.gz 2000 fs_BN_clipped_2000.nii.gz --exclude_background --data_type int16 -f
 
     scil_image_math.py lower_clip ${fs_seg_BN} 1000 fs_BN_clipped_1000.nii.gz
-    scil_image_math.py upper_clip fs_BN_clipped_1000.nii.gz 1101 fs_BN_clipped_1000.nii.gz -f
-    scil_remove_labels.py fs_BN_clipped_1000.nii.gz  fs_BN_clipped_1000.nii.gz -i 1000 1101 -f
+    scil_image_math.py upper_clip fs_BN_clipped_1000.nii.gz 1211 fs_BN_clipped_1000.nii.gz -f
+    scil_remove_labels.py fs_BN_clipped_1000.nii.gz  fs_BN_clipped_1000.nii.gz -i 1000 1211 -f
     scil_image_math.py subtraction fs_BN_clipped_1000.nii.gz 1000 fs_BN_clipped_1000.nii.gz --exclude_background --data_type int16 -f
 
     scil_image_math.py addition fs_BN_clipped_2000.nii.gz  fs_BN_clipped_1000.nii.gz fs_BN_clipped.nii.gz --exclude_background --data_type int16 -f
