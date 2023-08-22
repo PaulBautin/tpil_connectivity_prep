@@ -112,6 +112,7 @@ process Parcels_to_subject {
 
     scil_image_math.py lower_clip ${fs_seg_schaefer} 1000 fs_schaefer_clipped.nii.gz
     scil_remove_labels.py fs_schaefer_clipped.nii.gz  fs_schaefer_clipped.nii.gz -i 1000 -f
+    scil_remove_labels.py fs_schaefer_clipped.nii.gz  fs_schaefer_clipped.nii.gz -i 2000 -f
 
     scil_image_math.py lower_clip ${fs_seg_BN} 2000 fs_BN_clipped_2000.nii.gz
     scil_image_math.py upper_clip fs_BN_clipped_2000.nii.gz 2211 fs_BN_clipped_2000.nii.gz -f
@@ -123,7 +124,7 @@ process Parcels_to_subject {
     scil_remove_labels.py fs_BN_clipped_1000.nii.gz  fs_BN_clipped_1000.nii.gz -i 1000 1211 -f
     scil_image_math.py subtraction fs_BN_clipped_1000.nii.gz 1000 fs_BN_clipped_1000.nii.gz --exclude_background --data_type int16 -f
 
-    scil_image_math.py addition fs_BN_clipped_2000.nii.gz  fs_BN_clipped_1000.nii.gz fs_BN_clipped.nii.gz --exclude_background --data_type int16 -f
+    scil_combine_labels.py fs_BN_clipped.nii.gz --volume_ids fs_BN_clipped_2000.nii.gz all --volume_ids fs_BN_clipped_1000.nii.gz  all -f
 
     scil_dilate_labels.py fs_schaefer_clipped.nii.gz fs_schaefer_dilated.nii.gz  --distance 1.5 --mask mask_brain_bin.nii.gz
     scil_dilate_labels.py fs_BN_clipped.nii.gz fs_BN_dilated.nii.gz  --distance 1.5 --mask mask_brain_bin.nii.gz
@@ -132,9 +133,12 @@ process Parcels_to_subject {
     /opt/ants-2.3.2/bin/antsApplyTransforms -d 3 -i fs_schaefer_dilated.nii.gz -t ${sid}__output1Warp.nii.gz -t ${sid}__output0GenericAffine.mat -r ${t1_diffpro_brain} -o ${sid}__fsschaefer_transformed.nii.gz -n GenericLabel
     /opt/ants-2.3.2/bin/antsApplyTransforms -d 3 -i fs_BN_dilated.nii.gz -t ${sid}__output1Warp.nii.gz -t ${sid}__output0GenericAffine.mat -r ${t1_diffpro_brain} -o ${sid}__fsBN_transformed.nii.gz -n GenericLabel
 
-    scil_image_math.py addition ${sid}__fsschaefer_transformed.nii.gz ${sub_seg} ${sid}__schaefer_transformed.nii.gz --exclude_background --data_type int16 -f
-    scil_image_math.py addition ${sub_seg} 1000 sub_seg_add_1000.nii.gz --exclude_background --data_type int16 -f
-    scil_image_math.py addition ${sid}__fsBN_transformed.nii.gz sub_seg_add_1000.nii.gz ${sid}__BN_transformed.nii.gz --exclude_background --data_type int16 -f
+    scil_image_math.py addition ${sub_seg} 0 sub_seg.nii.gz --exclude_background --data_type int16 -f
+    scil_image_math.py addition ${sid}__fsschaefer_transformed.nii.gz 0 ${sid}__fsschaefer_transformed.nii.gz --exclude_background --data_type int16 -f
+    scil_image_math.py addition ${sid}__fsBN_transformed.nii.gz 0 ${sid}__fsBN_transformed.nii.gz --exclude_background --data_type int16 -f
+    scil_combine_labels.py ${sid}__schaefer_transformed.nii.gz --volume_ids sub_seg.nii.gz all --volume_ids ${sid}__fsschaefer_transformed.nii.gz all -f
+    scil_image_math.py addition sub_seg.nii.gz 1000 sub_seg_add_1000.nii.gz --exclude_background --data_type int16 -f
+    scil_combine_labels.py  ${sid}__BN_transformed.nii.gz --volume_ids sub_seg_add_1000.nii.gz all --volume_ids ${sid}__fsBN_transformed.nii.gz all -f
     #scil_combine_labels.py ${sid}__nativepro_seg_all.nii.gz --volume_ids ${sid}__fsatlas_transformed.nii.gz all --volume_ids ${sub_seg} all
     """
 }
