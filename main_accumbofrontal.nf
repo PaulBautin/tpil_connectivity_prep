@@ -47,22 +47,22 @@ process Subcortex_segmentation {
     /opt/ants-2.3.2/bin/ConvertTransformFile 3 ${affine} vtk_transfo.txt --hm
     source activate env_scil
     pip install --no-index 'nibabel<4'
-    python /home/pabaua/dev_tpil/tpil_dmri/surface/first2diff.py ${sid}-L_Thal_first.vtk  ${sid}-L_Thal_first_diff.ply --ref_img ${T1nativepro_brain} --ants_affine vtk_transfo.txt --ants_warp ${inv_warp} -f
-    python /home/pabaua/dev_tpil/tpil_dmri/surface/first2diff.py ${sid}-L_Caud_first.vtk  ${sid}-L_Caud_first_diff.ply --ref_img ${T1nativepro_brain} --ants_affine vtk_transfo.txt --ants_warp ${inv_warp} -f
-    python /home/pabaua/dev_tpil/tpil_dmri/surface/first2diff.py ${sid}-L_Puta_first.vtk  ${sid}-L_Puta_first_diff.ply --ref_img ${T1nativepro_brain} --ants_affine vtk_transfo.txt --ants_warp ${inv_warp} -f
-    python /home/pabaua/dev_tpil/tpil_dmri/surface/first2diff.py ${sid}-L_Pall_first.vtk  ${sid}-L_Pall_first_diff.ply --ref_img ${T1nativepro_brain} --ants_affine vtk_transfo.txt --ants_warp ${inv_warp} -f
-    python /home/pabaua/dev_tpil/tpil_dmri/surface/first2diff.py ${sid}-BrStem_first.vtk  ${sid}-BrStem_first_diff.ply --ref_img ${T1nativepro_brain} --ants_affine vtk_transfo.txt --ants_warp ${inv_warp} -f
-    python /home/pabaua/dev_tpil/tpil_dmri/surface/first2diff.py ${sid}-L_Hipp_first.vtk  ${sid}-L_Hipp_first_diff.ply --ref_img ${T1nativepro_brain} --ants_affine vtk_transfo.txt --ants_warp ${inv_warp} -f
-    python /home/pabaua/dev_tpil/tpil_dmri/surface/first2diff.py ${sid}-L_Amyg_first.vtk  ${sid}-L_Amyg_first_diff.ply --ref_img ${T1nativepro_brain} --ants_affine vtk_transfo.txt --ants_warp ${inv_warp} -f
-    python /home/pabaua/dev_tpil/tpil_dmri/surface/first2diff.py ${sid}-L_Accu_first.vtk  ${sid}-L_Accu_first_diff.ply --ref_img ${T1nativepro_brain} --ants_affine vtk_transfo.txt --ants_warp ${inv_warp} -f
-    python /home/pabaua/dev_tpil/tpil_dmri/surface/first2diff.py ${sid}-R_Thal_first.vtk  ${sid}-R_Thal_first_diff.ply --ref_img ${T1nativepro_brain} --ants_affine vtk_transfo.txt --ants_warp ${inv_warp} -f
-    python /home/pabaua/dev_tpil/tpil_dmri/surface/first2diff.py ${sid}-R_Caud_first.vtk  ${sid}-R_Caud_first_diff.ply --ref_img ${T1nativepro_brain} --ants_affine vtk_transfo.txt --ants_warp ${inv_warp} -f
-    python /home/pabaua/dev_tpil/tpil_dmri/surface/first2diff.py ${sid}-R_Puta_first.vtk  ${sid}-R_Puta_first_diff.ply --ref_img ${T1nativepro_brain} --ants_affine vtk_transfo.txt --ants_warp ${inv_warp} -f
-    python /home/pabaua/dev_tpil/tpil_dmri/surface/first2diff.py ${sid}-R_Pall_first.vtk  ${sid}-R_Pall_first_diff.ply --ref_img ${T1nativepro_brain} --ants_affine vtk_transfo.txt --ants_warp ${inv_warp} -f
-    python /home/pabaua/dev_tpil/tpil_dmri/surface/first2diff.py ${sid}-R_Hipp_first.vtk  ${sid}-R_Hipp_first_diff.ply --ref_img ${T1nativepro_brain} --ants_affine vtk_transfo.txt --ants_warp ${inv_warp} -f
-    python /home/pabaua/dev_tpil/tpil_dmri/surface/first2diff.py ${sid}-R_Amyg_first.vtk  ${sid}-R_amyg_first_diff.ply --ref_img ${T1nativepro_brain} --ants_affine vtk_transfo.txt --ants_warp ${inv_warp} -f
-    python /home/pabaua/dev_tpil/tpil_dmri/surface/first2diff.py ${sid}-R_Accu_first.vtk  ${sid}-R_Accu_first_diff.ply --ref_img ${T1nativepro_brain} --ants_affine vtk_transfo.txt --ants_warp ${inv_warp} -f
-    python /home/pabaua/dev_tpil/tpil_dmri/surface/first2diff.py ${sid}-R_Caud_first.vtk  ${sid}-R_Caud_first_diff.ply --ref_img ${T1nativepro_brain} --ants_affine vtk_transfo.txt --ants_warp ${inv_warp} -f
+    python $SUBJECTS_DIR/first2diff.py ${sid}-L_Thal_first.vtk  ${sid}-L_Thal_first_diff.ply --ref_img ${T1nativepro_brain} --ants_affine vtk_transfo.txt --ants_warp ${inv_warp} -f
+    python $SUBJECTS_DIR/first2diff.py ${sid}-L_Caud_first.vtk  ${sid}-L_Caud_first_diff.ply --ref_img ${T1nativepro_brain} --ants_affine vtk_transfo.txt --ants_warp ${inv_warp} -f
+    python $SUBJECTS_DIR/first2diff.py ${sid}-L_Puta_first.vtk  ${sid}-L_Puta_first_diff.ply --ref_img ${T1nativepro_brain} --ants_affine vtk_transfo.txt --ants_warp ${inv_warp} -f
+    python $SUBJECTS_DIR/first2diff.py ${sid}-L_Pall_first.vtk  ${sid}-L_Pall_first_diff.ply --ref_img ${T1nativepro_brain} --ants_affine vtk_transfo.txt --ants_warp ${inv_warp} -f
+    python $SUBJECTS_DIR/first2diff.py ${sid}-BrStem_first.vtk  ${sid}-BrStem_first_diff.ply --ref_img ${T1nativepro_brain} --ants_affine vtk_transfo.txt --ants_warp ${inv_warp} -f
+    python $SUBJECTS_DIR/first2diff.py ${sid}-L_Hipp_first.vtk  ${sid}-L_Hipp_first_diff.ply --ref_img ${T1nativepro_brain} --ants_affine vtk_transfo.txt --ants_warp ${inv_warp} -f
+    python $SUBJECTS_DIR/first2diff.py ${sid}-L_Amyg_first.vtk  ${sid}-L_Amyg_first_diff.ply --ref_img ${T1nativepro_brain} --ants_affine vtk_transfo.txt --ants_warp ${inv_warp} -f
+    python $SUBJECTS_DIR/first2diff.py ${sid}-L_Accu_first.vtk  ${sid}-L_Accu_first_diff.ply --ref_img ${T1nativepro_brain} --ants_affine vtk_transfo.txt --ants_warp ${inv_warp} -f
+    python $SUBJECTS_DIR/first2diff.py ${sid}-R_Thal_first.vtk  ${sid}-R_Thal_first_diff.ply --ref_img ${T1nativepro_brain} --ants_affine vtk_transfo.txt --ants_warp ${inv_warp} -f
+    python $SUBJECTS_DIR/first2diff.py ${sid}-R_Caud_first.vtk  ${sid}-R_Caud_first_diff.ply --ref_img ${T1nativepro_brain} --ants_affine vtk_transfo.txt --ants_warp ${inv_warp} -f
+    python $SUBJECTS_DIR/first2diff.py ${sid}-R_Puta_first.vtk  ${sid}-R_Puta_first_diff.ply --ref_img ${T1nativepro_brain} --ants_affine vtk_transfo.txt --ants_warp ${inv_warp} -f
+    python $SUBJECTS_DIR/first2diff.py ${sid}-R_Pall_first.vtk  ${sid}-R_Pall_first_diff.ply --ref_img ${T1nativepro_brain} --ants_affine vtk_transfo.txt --ants_warp ${inv_warp} -f
+    python $SUBJECTS_DIR/first2diff.py ${sid}-R_Hipp_first.vtk  ${sid}-R_Hipp_first_diff.ply --ref_img ${T1nativepro_brain} --ants_affine vtk_transfo.txt --ants_warp ${inv_warp} -f
+    python $SUBJECTS_DIR/first2diff.py ${sid}-R_Amyg_first.vtk  ${sid}-R_amyg_first_diff.ply --ref_img ${T1nativepro_brain} --ants_affine vtk_transfo.txt --ants_warp ${inv_warp} -f
+    python $SUBJECTS_DIR/first2diff.py ${sid}-R_Accu_first.vtk  ${sid}-R_Accu_first_diff.ply --ref_img ${T1nativepro_brain} --ants_affine vtk_transfo.txt --ants_warp ${inv_warp} -f
+    python $SUBJECTS_DIR/first2diff.py ${sid}-R_Caud_first.vtk  ${sid}-R_Caud_first_diff.ply --ref_img ${T1nativepro_brain} --ants_affine vtk_transfo.txt --ants_warp ${inv_warp} -f
     """
 }
 
