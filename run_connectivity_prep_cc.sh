@@ -38,8 +38,8 @@ my_template='/home/pabaua/projects/def-pascalt-ab/pabaua/dev_scil/atlas/mni_mask
 
 
 nextflow run $my_main_nf  \
-  --input_tr $my_input_tr_clbp \
-  --input_fs $my_input_fs_clbp \
+  --input_tr $my_input_tr_con \
+  --input_fs $my_input_fs_con \
   --licence_fs $my_licence_fs \
   --template $my_template \
   -with-singularity $my_singularity_img \
