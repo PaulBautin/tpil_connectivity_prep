@@ -14,7 +14,7 @@
                                # https://docs.computecanada.ca/wiki/B%C3%A9luga/en#Node_Characteristics
 #SBATCH --mem=0                # --> 0 means you take all the memory of the node. If you think you will need
                                # all the node, you can keep 0.
-#SBATCH --time=3:00:00
+#SBATCH --time=6:00:00
 
 #SBATCH --mail-user=paul.bautin@polymtl.ca
 #SBATCH --mail-type=BEGIN
@@ -39,8 +39,8 @@ my_template='/home/pabaua/projects/def-pascalt-ab/pabaua/dev_scil/atlas/mni_mask
 
 
 nextflow run $my_main_nf  \
-  --input_tr $my_input_tr_con \
-  --input_fs $my_input_fs_con \
+  --input_tr $my_input_tr_clbp \
+  --input_fs $my_input_fs_clbp \
   --licence_fs $my_licence_fs \
   --template $my_template \
   -with-singularity $my_singularity_img \
