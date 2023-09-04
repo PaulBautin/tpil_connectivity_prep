@@ -38,7 +38,7 @@ process Subcortex_segmentation {
 
     output:
     tuple val(sid), file("${sid}__first_atlas_transformed.nii.gz"), emit: sub_parcels
-    tuple val(sid), file("*.vtk"), file("*.nii.gz"), file("*.ply"), emit: sub_surfaces
+    tuple val(sid), file("*.vtk"), file("*.nii.gz"), emit: sub_surfaces
 
     script:
     """
