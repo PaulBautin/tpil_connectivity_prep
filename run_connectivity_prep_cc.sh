@@ -24,7 +24,7 @@
 #SBATCH --mail-type=ALL
 
 
-module load StdEnv/2020 java/14.0.2 nextflow/22.10.8 apptainer/1.1.8 python/3.7.4 mii/1.1.1
+module load StdEnv/2020 java/14.0.2 nextflow/22.10.8 apptainer/1.1.8 python/3.7 mii/1.1.1
 
 
 my_singularity_img='/home/pabaua/projects/def-pascalt-ab/pabaua/dev_scil/containers/singularity_container.sif' # or .sif
