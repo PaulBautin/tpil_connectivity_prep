@@ -47,6 +47,7 @@ process Subcortex_segmentation {
     /opt/ants-2.3.2/bin/ConvertTransformFile 3 ${affine} vtk_transfo.txt --hm
     source activate env_scil
     pip install --no-index 'nibabel<4'
+    pip install --no-index 'numpy<1.25'
     python $SUBJECTS_DIR/first2diff.py ${sid}-L_Thal_first.vtk  ${sid}-L_Thal_first_diff.ply --ref_img ${T1nativepro_brain} --ants_affine vtk_transfo.txt --ants_warp ${inv_warp} -f
     python $SUBJECTS_DIR/first2diff.py ${sid}-L_Caud_first.vtk  ${sid}-L_Caud_first_diff.ply --ref_img ${T1nativepro_brain} --ants_affine vtk_transfo.txt --ants_warp ${inv_warp} -f
     python $SUBJECTS_DIR/first2diff.py ${sid}-L_Puta_first.vtk  ${sid}-L_Puta_first_diff.ply --ref_img ${T1nativepro_brain} --ants_affine vtk_transfo.txt --ants_warp ${inv_warp} -f
