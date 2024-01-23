@@ -19,6 +19,5 @@ neurodocker generate singularity \
    	--run-bash 'source activate env_scil && git clone https://github.com/scilus/scilpy.git && mv scilpy /opt/ && pip install --upgrade pip && pip install -e /opt/scilpy/. && source deactivate' \
    	--ants version=2.3.2 \
 	--freesurfer version=7.3.1 \
-	--fsl version=6.0.5.1 \
-   	 > singularity_prep
+   	> singularity_prep
 
